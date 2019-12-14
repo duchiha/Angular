@@ -12,7 +12,15 @@ export class ProductListComponent implements OnInit {
   imageWidth: number=60;
   imageMargin: number=5;
   displayImage : boolean= false;
-  listFilter: string ="cart";
+  private _listFilter: string;
+  public get listFilter(): string {
+    return this._listFilter;
+  }
+  public set listFilter(value: string) {
+   this._listFilter = value;
+   this.filteredProducts = this.listFilter ? this.performFiltering(this.listFilter) : this.products;
+  }
+  filteredProducts: IProduct[];
   products: IProduct[] =
     [
       {
@@ -67,13 +75,23 @@ export class ProductListComponent implements OnInit {
       }
     ];
 
-  constructor() { }
+  constructor() { 
+    this.filteredProducts=this.products;
+    this.listFilter="cart";
+    
+  }
 
   ngOnInit() {
   }
 
   toggleImage():void{
    this.displayImage= !this.displayImage;
+  }
+
+  performFiltering(filterBy:string):IProduct[]{
+   filterBy=filterBy.toLocaleLowerCase();
+   return this.products.filter( (product:IProduct) => 
+    product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
 }
