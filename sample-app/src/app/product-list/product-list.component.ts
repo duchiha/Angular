@@ -11,6 +11,7 @@ export class ProductListComponent implements OnInit {
   imageWidth: number=60;
   imageMargin: number=5;
   displayImage : boolean= false;
+  listFilter: string ="cart";
   products: any[] =
     [
       {
