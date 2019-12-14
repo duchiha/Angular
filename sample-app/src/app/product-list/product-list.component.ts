@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IProduct } from '../model/iproduct';
 
 @Component({
   selector: 'app-product-list',
@@ -12,7 +13,7 @@ export class ProductListComponent implements OnInit {
   imageMargin: number=5;
   displayImage : boolean= false;
   listFilter: string ="cart";
-  products: any[] =
+  products: IProduct[] =
     [
       {
         "productId": 1,
