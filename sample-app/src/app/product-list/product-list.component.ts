@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ProductListComponent implements OnInit {
 
   pageTitle : string ='Product List';
+  products: any[];
+
   constructor() { }
 
   ngOnInit() {
