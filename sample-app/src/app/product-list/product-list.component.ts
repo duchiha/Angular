@@ -13,25 +13,32 @@ export class ProductListComponent implements OnInit {
   imageWidth: number = 60;
   imageMargin: number = 5;
   displayImage: boolean = false;
-  private _listFilter: string;
-  public get listFilter(): string {
+  errMessage: string;
+
+  _listFilter: string;
+   get listFilter(): string {
     return this._listFilter;
   }
-  public set listFilter(value: string) {
+   set listFilter(value: string) {
     this._listFilter = value;
     this.filteredProducts = this.listFilter ? this.performFiltering(this.listFilter) : this.products;
   }
+
   filteredProducts: IProduct[];
-  products: IProduct[];
+  products: IProduct[] = [];
 
   constructor(private productService: ProductService) { }
 
-  ngOnInit() {
-    this.products = this.productService.getProducts();
-    this.filteredProducts = this.products;
-    this.listFilter = "cart";
+  ngOnInit(): void {
+    this.productService.getProducts().subscribe({
+      next: products => {
+        this.products = products;
+        this.filteredProducts = this.products;
+      },
+      error: err => this.errMessage = err
+    });
+    
   }
-
   toggleImage(): void {
     this.displayImage = !this.displayImage;
   }
