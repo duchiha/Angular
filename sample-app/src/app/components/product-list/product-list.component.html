@@ -19,9 +19,8 @@
                 <thead>
                     <tr>
                         <th>
-                            <button class='btn btn-primary'
-                                     (click)='toggleImage()'>
-                              {{ displayImage ? "Hide" : "Show"}} Image
+                            <button class='btn btn-primary' (click)='toggleImage()'>
+                                {{ displayImage ? "Hide" : "Show"}} Image
                             </button>
                         </th>
                         <th>Product</th>
@@ -33,19 +32,21 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let product of filteredProducts">
-                     <td>
-                         <img *ngIf="displayImage" 
-                              [src]='product.imageUrl'
-                              [title]='product.productName'
-                              [style.width.px]='imageWidth'
-                              [style.margin.px]='imageMargin' >
-                     </td>
-                     <td>{{product.productName}}</td>
-                     <td>{{product.productCode | convertToSpaces:'-' }}</td>
-                     <td>{{product.releaseDate}}</td>
-                     <td>{{product.price | currency :'USD':'symbol':'1.2-2'}}</td>
-                     <td><app-star [rating]="product.starRating"
-                                   (ratingClicked)="onRatingClicked($event)"></app-star></td>
+                        <td>
+                            <img *ngIf="displayImage" [src]='product.imageUrl' [title]='product.productName'
+                                [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/products', product.productId]" routerLinkActive="router-link-active">
+                                {{product.productName}} </a>
+                        </td>
+                        <td>{{product.productCode | convertToSpaces:'-' }}</td>
+                        <td>{{product.releaseDate}}</td>
+                        <td>{{product.price | currency :'USD':'symbol':'1.2-2'}}</td>
+                        <td>
+                            <app-star [rating]="product.starRating" (ratingClicked)="onRatingClicked($event)">
+                            </app-star>
+                        </td>
                     </tr>
                 </tbody>
             </table>
